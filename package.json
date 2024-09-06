@@ -1,0 +1,23 @@
+{
+  "name": "tetunori-zenn-articles",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tetunori/tetunori-zenn-articles.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tetunori/tetunori-zenn-articles/issues"
+  },
+  "homepage": "https://github.com/tetunori/tetunori-zenn-articles#readme",
+  "dependencies": {
+    "zenn-cli": "^0.1.155"
+  }
+}
