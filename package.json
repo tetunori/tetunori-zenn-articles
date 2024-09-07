@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "new": "npx zenn new:article --slug 202ymmdd-tetunori-topic00",
+    "article": "npx zenn new:article --slug 202ymmdd-tetunori-topic00",
     "preview": "npx zenn preview --open",
     "prev": "npx zenn preview --open",
-    "make": "yarn new && yarn prev"
+    "book": "npx zenn new:book --slug 202ymmdd-tetunori-topic00",
+    "make": "yarn article && yarn prev"
   },
   "repository": {
     "type": "git",
