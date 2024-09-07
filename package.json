@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "new": "npx zenn new:article --slug 202ymmdd-tetunori-topic00",
+    "preview": "npx zenn preview --open",
+    "prev": "npx zenn preview --open",
+    "make": "yarn new && yarn prev"
   },
   "repository": {
     "type": "git",
