@@ -6,4 +6,8 @@ topics: ['tesseract','p5js', 'ocr', 'windows', 'ztmy']
 published: false
 ---
 
-# 
+# サマリ
+
+# 成果物
+
+# リファレンス
