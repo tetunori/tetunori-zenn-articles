@@ -18,6 +18,6 @@ https://github.com/tetunori/ztmy-font-decoder
 https://x.com/tetunori_lego/status/1830059145417970044
 
 # 開発環境💻
-- Windows 11 Home
-以上。特に高性能なPCである必要もありません。
+- OS: Windows 11 Home
+以上。特に高性能なPCである必要もなし。
 
