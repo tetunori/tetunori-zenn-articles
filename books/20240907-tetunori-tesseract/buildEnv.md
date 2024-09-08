@@ -1,9 +1,12 @@
 ---
-title: "Windows上にTesseract学習環境を構築する"
+title: "Tesseract学習環境を構築する"
 ---
-本Chapterでは、さっそく必要なツールやファイルをダウンロードし、セットアップしていく。
+本Chapterでは、さっそく必要なツールやファイルをダウンロードし、セットアップしていく。具体的には、以下の３つを用意する。
+- `Tesseract`: OCRの基礎技術の提供
+- `jTessBoxEditor`: Fontから学習データの作成と学習をwrapして実施
+- ZTMYフォント: オリジナルフォント
 
-# Tesseract
+# Tesseract🎲
 ## Tesseractのダウンロード
 [Tesseract User Manual](https://github.com/tesseract-ocr/tessdoc)にアクセスすると、[Windows用のinstallerを紹介するWikiページ](https://github.com/UB-Mannheim/tesseract/wiki)へのリンクがあるので、そこから最新版をダウンロードする。  
 
@@ -27,12 +30,12 @@ title: "Windows上にTesseract学習環境を構築する"
 
 無事にインストールが完了すると、`C:\Program Files\Tesseract-OCR`にファイルが展開されているはず。
 
-# jTessBoxEditor
+# jTessBoxEditor📦
 上記`Tesseract`は基本的にコマンドラインやAPI経由で扱うツールなので、今回は`Tesseract`を使ってGUIでデータを準備したり学習したりできるツール`jTessBoxEditor`を導入する。  
-参考までに、`jTessBoxEditor`のオフィシャルページは[こちら](https://vietocr.sourceforge.net/training.htm)
+参考までに、`jTessBoxEditor`のオフィシャルページは[こちら](https://vietocr.sourceforge.net/training.html)
 
 ## jTessBoxEditorのダウンロード
-[オフィシャルページ](https://vietocr.sourceforge.net/training.htm)の`Download`リンクをたどり、`SOURCE FORGE`ページから最新の`jTessBoxEditor`をダウンロードする。
+[オフィシャルページ](https://vietocr.sourceforge.net/training.html)の`Download`リンクをたどり、`SOURCE FORGE`ページから最新の`jTessBoxEditor`をダウンロードする。
 なお、2024/09/08時点では`2.6.0`が最新の様子なので、今回は`Released /jTessBoxEditor/jTessBoxEditor-2.6.0.zip`というリンクをクリックしダウンロードした。
 
 ## jTessBoxEditorのインストール
@@ -42,9 +45,17 @@ title: "Windows上にTesseract学習環境を構築する"
 ![](/images/20240907-tetunori-tesseract/05.png)
 *jTessBoxEditorアプリの起動直後画面*
 
-# ZTMYフォント
+# ZTMYフォント🦔
 [ZTMYフォントダウンロードページ](https://zutomayo.net/font/)へアクセスのうえ`Download`ボタンを押下し、`ZTMY_MOJI-R.otf`を得る。以下に、このフォントの特徴を挙げておく。
 - 各ひらがな(カタカナも同様)に1:1で特殊な文字がアサインされている
 - 濁点、半濁点、捨て仮名は、元の文字を回転して表現する
 - 一部の記号(`？`,`！`,`ー`,`、`, `。`)らにも対応したフォントが存在する
 - ZTMYファンにはなじみ深い一部の漢字群(`韮`,`強`,`栗`, `剣`, `銃`, `泥`, `土`, `猫`, `飯`, `夜`, `踊`)に対応した隠し絵文字が存在する
+
+さて、このフォントを`jTessBoxEditor`で扱いたいのだが、Windowsのフォントとしてインストールするだけではツールから認識されなかった。`Java`アプリから認識させるために、以下にフォントをコピーしておくこと。
+`C:\Program Files\Java\jre.<version>\lib\fonts`
+![](/images/20240907-tetunori-tesseract/06.png)
+*Javaのfontsフォルダに該当フォントをコピーしておく*
+
+ここまでツールをインストールできたら、OCRの学習環境としては整っているので、次Chapterから早速学習を開始する。
+
