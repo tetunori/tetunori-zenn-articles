@@ -8,16 +8,16 @@ title: "p5.jsでオリジナルフォントを文字認識＆デコードする"
 https://github.com/tetunori/ztmy-font-decoder/tree/main
 なお、[GitHub Pagesにお試しできる環境](https://tetunori.github.io/ztmy-font-decoder/)を用意している。
 
-# ツールの機能概要(使い方)
+# ツールの機能概要(使い方)🔦
 ![](/images/20240907-tetunori-tesseract/12.png)
 *ツール起動時の画面*
 
-## カメラを使って解析する場合
+## カメラを使って解析する場合📷
 1. [ztmy-font-decoder](https://tetunori.github.io/ztmy-font-decoder/)にアクセスする。
 2. 画面上半分の📷アイコンをタップする。
 3. 解析したい部分をタッチで選択すると、画面下半分に解析結果が表示される。
 
-## 画像から解析する場合
+## 画像から解析する場合📁
 1. [ztmy-font-decoder](https://tetunori.github.io/ztmy-font-decoder/)にアクセスする。
 2. 画面下半分の📁アイコンをタップして、解析する画像を選択する。
 3. 解析したい部分をタッチで選択すると、画面下半分に解析結果が表示される。
@@ -27,15 +27,15 @@ https://github.com/tetunori/ztmy-font-decoder/tree/main
 - (上記の)設定のリセット
 - [ztmy-font-tester](https://github.com/tetunori/ztmy-font-tester/)への移動
 
-# 使用する外部ライブラリ
+# 使用する外部ライブラリ📚
 上記機能を実現するにあたり、下記のライブラリを使用した。
 - [p5.js](https://github.com/processing/p5.js): `Processing`のJavaScript版。本書では説明は割愛するので、必要な場合は[本家のTutorial](https://p5js.org/tutorials/)を見ること
 - [tesseract.js](https://github.com/naptha/tesseract.js): `Tesseract`をJavaScriptから使用できるようにしてくれる神ライブラリ。必要に応じて[API仕様のページ](https://github.com/naptha/tesseract.js/blob/master/docs/api.md)を見る。
 - [dat.gui](https://github.com/dataarts/dat.gui): GUIで変数の調整等を行うためのライブラリ
 
-# ソースコードのポイント
+# ソースコードのポイント💡
 
-## `Tesseract`の使い方
+## `Tesseract`の使い方🎲
 前のChapterで得られた学習済データ`ztmy.traineddata`は`tesseract`フォルダを作り、その中へコピーしておく。
 まずは、`p5.js`の`preload`関数内で`Tesseract`のworkerを準備する。
 ```JavaScript
@@ -60,7 +60,7 @@ preloadが完了した後は、認識したいタイミングで`tessWorker.reco
 ```
 [`tessWorker.recognize`](https://github.com/naptha/tesseract.js/blob/master/docs/api.md#worker-recognize)はとても強力な関数で、引数には`bmp`, `jpg`などの画像系はもちろんのこと、`File`や`Blob`、`img`や`canvas`など[幅広いソース](https://github.com/naptha/tesseract.js/blob/master/docs/image-format.md)を渡すことができる。`tesseract.js`でいかに容易に認識が可能か理解できただろうか。
 
-## ファイルのinputとdrop
+## ファイルのinputとdrop📜
 最初の画像ファイルの登録時、本ツールでは２通りの方法に対応している。１つがファイル選択(input)、もう１つがファイルのdropである。`p5.js`では、それぞれ以下の様に簡単に実装できるようになっている。
 ```JavaScript
 function setup() {
@@ -96,7 +96,7 @@ const handleFile = (file) => {
 ```
 なお、`tessWorker.recognize`の第2引数にはオプションを渡すことができ、例えば矩形の領域を渡してあげると、画像のうちその部分だけの認識をすることが可能である。
 
-## 画像の白黒化
+## 画像の白黒化⚪⚫
 `p5.js`にはもともと画像をfilterできる機能があるので、それを使って白黒2値化およびしきい値の指定をしている。それ自体は簡単なのだが、`canvas`全体を認識対象にしてしまうと画像以外の領域も認識しようとしてしまうので、ノイズになり認識時間も伸びてしまう。よって、`p5.js`の`CreateGraphics`関数を使って別の`canvas`をつくりそれを認識の対象として指定している。
 
 ```JavaScript
@@ -119,7 +119,7 @@ const decode = () => {
 ![](/images/20240907-tetunori-tesseract/13.png)
 *白黒2値化した画像と認識結果*
 
-## カメラを使って認識する
+## カメラを使って認識する📷
 これはとても容易で、`p5.js`でwebカメラを使用すると各フレームを画像として取得できるため、上記画像の例に帰着させることができる。具体的には以下のように実装する。認識時に渡す形態が多少異なる点に注意する。
 
 ```JavaScript
@@ -140,7 +140,7 @@ const _mouseClicked = () => {
 ![](/images/20240907-tetunori-tesseract/14.png)
 *スマホのカメラで認識した際の結果*
 
-## 認識後に不要なスペースを削除する
+## 認識後に不要なスペースを削除する🩹
 今回選択したフォントが等幅フォントではないため、横幅が小さい文字は前後にスペースが挟まれることがある。boxデータの方である程度改善が可能かもしれないが、今回はJSで修正した。また、他のカナ文字とスペースを合わせるために、残った半角スペースは全角スペースへ変更している。
 
 ```JavaScript
@@ -159,7 +159,7 @@ const manageSpaces = (targetText) => {
 };
 ```
 
-## iPhoneのSafariでタップ系の操作が効かない
+## iPhoneのSafariでタップ系の操作が効かない👆
 Chromeでは大丈夫なのだが、Safariでのみこのような問題が起きることがあるが、`p5.js`の`mouseClicked`がそのままでは動作しないことが問題である。これに対するwork-aroundとして`canvas`に対して、`.mouseClicked()`を登録してあげるだけでSafari/Chrome両方で動作するようになる。筆者は元の`mouseClicked`を`_mouseClicked`にリネームして解決した。
 ```JavaScript
 function setup() {
