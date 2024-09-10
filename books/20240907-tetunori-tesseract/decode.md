@@ -6,9 +6,12 @@ title: "p5.jsでオリジナルフォントを文字認識＆デコードする"
 
 最終的な成果物としては、以下にあるような`index.html`, `mySketch.js`ができあがるイメージ。
 https://github.com/tetunori/ztmy-font-decoder/tree/main
-なお、[GitHub Pagesにお試しできる環境](tetunori.github.io/ztmy-font-decoder/)を用意している。
+なお、[GitHub Pagesにお試しできる環境](https://tetunori.github.io/ztmy-font-decoder/)を用意している。
 
 # ツールの機能概要(使い方)
+![](/images/20240907-tetunori-tesseract/12.png)
+*ツール起動時の画面*
+
 ## カメラを使って解析する場合
 1. [ztmy-font-decoder](https://tetunori.github.io/ztmy-font-decoder/)にアクセスする。
 2. 画面上半分の📷アイコンをタップする。
@@ -113,7 +116,48 @@ const decode = () => {
   })();
 };
 ```
+![](/images/20240907-tetunori-tesseract/13.png)
+*白黒2値化した画像と認識結果*
 
+## カメラを使って認識する
+これはとても容易で、`p5.js`でwebカメラを使用すると各フレームを画像として取得できるため、上記画像の例に帰着させることができる。具体的には以下のように実装する。認識時に渡す形態が多少異なる点に注意する。
+
+```JavaScript
+const _mouseClicked = () => {
+  const constraints = {
+    video: {
+      facingMode: 'environment',  // 外向きカメラ固定
+    },
+    audio: false,
+  };
+  const cpt = createCapture(constraints);  // カメラ起動
+  cpt.hide();  // カメラはcanvasに表示したいので、canvas外のカメラは隠す
+  // 以後、画像として`cpt`を指定する。
+  // あとは画像の認識となるので、同様の処理。
+  // ただし、検出対象は、`cpt.canvas`を指定すること。
+};
+```
+![](/images/20240907-tetunori-tesseract/14.png)
+*スマホのカメラで認識した際の結果*
+
+## 認識後に不要なスペースを削除する
+今回選択したフォントが等幅フォントではないため、横幅が小さい文字は前後にスペースが挟まれることがある。boxデータの方である程度改善が可能かもしれないが、今回はJSで修正した。また、他のカナ文字とスペースを合わせるために、残った半角スペースは全角スペースへ変更している。
+
+```JavaScript
+const manageSpaces = (targetText) => {
+  let returnText = targetText;
+
+  ['イ', 'ィ', '！', '？', '、', '。'].forEach((t) => {
+    [' ' + t, t + ' '].forEach((e) => {
+      returnText = returnText.replaceAll(e, t);
+    });
+  });
+
+  returnText = returnText.replaceAll(' ', '　');
+
+  return returnText;
+};
+```
 
 ## iPhoneのSafariでタップ系の操作が効かない
 Chromeでは大丈夫なのだが、Safariでのみこのような問題が起きることがあるが、`p5.js`の`mouseClicked`がそのままでは動作しないことが問題である。これに対するwork-aroundとして`canvas`に対して、`.mouseClicked()`を登録してあげるだけでSafari/Chrome両方で動作するようになる。筆者は元の`mouseClicked`を`_mouseClicked`にリネームして解決した。
@@ -125,4 +169,5 @@ function setup() {
 }
 ```
 
+認識に関するノウハウの共有はこれで全てである。ただ、ここまでたくさんの検証をするにあたり、テストデータを作成する必要があったので、オリジナルフォントの画像を生成できるツール[ztmy-font-tester](https://github.com/tetunori/ztmy-font-tester/)についてもAppendixとして次Chapterでシェアをする。
 
