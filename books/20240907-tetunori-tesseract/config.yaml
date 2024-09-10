@@ -1,0 +1,12 @@
+title: "Windows GUI環境とp5.jsで独自フォントのOCRツールを作成する方法"
+summary: "オリジナルのフォントを文字認識するために、OSSのOCRライブラリであるTesseractを導入した。特に、WindowsのGUI環境のみでインストールから学習完了までの実現方法や、その学習データをp5.jsから読み込んで最終的にWebAppとしてOCRツールを提供する方法を紹介する。なお、オリジナルのフォントはZTMY Fontを使用する。"
+topics: ['tesseract','p5js', 'ocr', 'windows', 'ztmy']
+published: false
+price: 0 # 有料の場合200〜5000
+# 本に含めるチャプターを順番に並べましょう
+chapters:
+  - intro
+  - buildenv
+  - learnfont
+  - decode
+  - tester
